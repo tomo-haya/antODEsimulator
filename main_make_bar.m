@@ -14,7 +14,7 @@ colormap(colors);
 set(gcf, 'Position', [0 500 600 300])
 b = bar(y);
 set(gca, 'XTickLabel',tcks);
-ylabel('$p_{fdetect}$','FontSize',12,'Interpreter','latex');
+ylabel('$\rho_{fdet}$','FontSize',12,'Interpreter','latex');
 ylim([0e-4 5e-4])
 
 figure(2)%%%MIDDEN for journal
@@ -29,7 +29,7 @@ set(gcf, 'Position', [650 500 600 300])
 b = bar(y);
 set(gca, 'Yscale', 'log', 'XTickLabel',tcks);
 legend({'${\rm S_Y(-1)}$','${\rm S_Y(0)}$','${\rm S_Y(+1)}$'},'FontSize',12,'Position',[0.75 0.75 0.08 0.03],'Interpreter','latex');
-ylabel('$p_{mcoll}$','FontSize',12,'Interpreter','latex');
+ylabel('$\theta$','FontSize',12,'Interpreter','latex');
 ylim([1e-6 5.0e-2])
 text(.75,.6e-6,'Long-term','FontSize',12, 'FontName','Times new Roman','Interpreter','latex')
 text(1.75,.6e-6,'Short-term','FontSize',12, 'FontName','Times new Roman','Interpreter','latex')
@@ -49,7 +49,7 @@ set(gcf, 'Position', [1300 500 600 300])
 b = bar(y);
 set(gca, 'Yscale', 'log', 'XTickLabel',tcks);
 legend({'${\rm S_Y(-1)}$','${\rm S_Y(0)}$','${\rm Y(+1)}$'},'FontSize',12,'Position',[0.75 0.75 0.08 0.03],'Interpreter','latex');
-ylabel('$p_{din}$','FontSize',12,'Interpreter','latex');
+ylabel('$\psi$','FontSize',12,'Interpreter','latex');
 ylim([1e-5 5.0e-1])
 text(.75,.6e-5,'Long-term','FontSize',12, 'FontName','Times new Roman','Interpreter','latex')
 text(1.75,.6e-5,'Short-term','FontSize',12, 'FontName','Times new Roman','Interpreter','latex')

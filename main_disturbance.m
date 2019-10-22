@@ -9,7 +9,7 @@ set(groot,'defaultTextFontWeight','demi');
 clear
 clc
 
-    Disturbance = 3;%%1:Starvation(Fig. 5) 2:Midden collapse(Fig. 6) 3:Debris inflow(Fig. 7)
+    Disturbance = 1;%%1:Starvation(Fig. 5) 2:Midden collapse(Fig. 6) 3:Debris inflow(Fig. 7)
 
     
     

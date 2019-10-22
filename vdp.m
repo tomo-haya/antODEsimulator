@@ -35,31 +35,31 @@ global casenum %Scenario, which is determined in solve_vdp
 
 
 CCS=y(1)+y(2)+y(3)+y(4)+y(5)+y(6)+y(7)+y(8)+y(9)+y(10);%%Current colony size
-n_negative=(a_max/beta)/(1-exp(-(a_max/beta)));
+y_negative=(a_max/beta)/(1-exp(-(a_max/beta)));
 n_positive=(a_max/beta)/(exp(a_max/beta) - 1);
 
 switch casenum %Scenario, which is determined in solve_vdp
     case 1     %Colony size FB (-1)    %Nutritional energy FB (-1)
         X_FB=alpha/(CCS - y(4) - y(5));
-        Y_FB=n_negative * (exp(-y(13)/(CCS*beta)));
+        Y_FB=y_negative * (exp(-y(13)/(CCS*beta)));
         if Y_FB > 10^9
             Y_FB=10^9;
         end
     case 2         %Colony size FB (0H)       %Nutritional energy FB (-1)
         X_FB=alpha/10;
-        Y_FB=n_negative * (exp(-y(13)/(CCS*beta)));
+        Y_FB=y_negative * (exp(-y(13)/(CCS*beta)));
         if Y_FB > 10^9
             Y_FB=10^9;
         end
     case 3       %Colony size FB (0L)        %Nutritional energy FB (-1)
        X_FB=alpha/100;
-        Y_FB=n_negative * (exp(-y(13)/(CCS*beta)));
+        Y_FB=y_negative * (exp(-y(13)/(CCS*beta)));
         if Y_FB > 10^9
             Y_FB=10^9;
         end
     case 4        %Colony size FB (+1)        %Nutritional energy FB (-1)
         X_FB=alpha * (CCS - y(4) - y(5)) /10000;
-        Y_FB=n_negative * (exp(-y(13)/(CCS*beta)));
+        Y_FB=y_negative * (exp(-y(13)/(CCS*beta)));
         if Y_FB > 10^9
             Y_FB=10^9;
         end
