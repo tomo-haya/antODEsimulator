@@ -434,7 +434,7 @@ for i=1:12
        area(ty12, Z12)
        axis([0,15,0,1])
        set(gca,'FontSize', 15, 'FontName','Times new Roman');
-       l=legend({'Foraging','Midden Work','Nest maintenance','Blood care'},'Position',[0.45 -0.08 0.1 0.2],'Orientation','horizontal', 'FontName','Times new Roman');
+       l=legend({'Foraging','Midden Work','Nest maintenance','Brood care'},'Position',[0.45 -0.08 0.1 0.2],'Orientation','horizontal', 'FontName','Times new Roman');
        set(l,'FontSize', 15)
    end   
    

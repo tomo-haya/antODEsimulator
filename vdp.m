@@ -27,7 +27,7 @@ global l;
 global q_foraging;
 global q_midden;
 global q_nest;
-global q_blood;
+global q_brood;
 global g;
 global gamma;
 
@@ -35,31 +35,31 @@ global casenum %Scenario, which is determined in solve_vdp
 
 
 CCS=y(1)+y(2)+y(3)+y(4)+y(5)+y(6)+y(7)+y(8)+y(9)+y(10);%%Current colony size
-y_negative=(a_max/beta)/(1-exp(-(a_max/beta)));
-y_positive=(a_max/beta)/(exp(a_max/beta) - 1);
+n_negative=(a_max/beta)/(1-exp(-(a_max/beta)));
+n_positive=(a_max/beta)/(exp(a_max/beta) - 1);
 
 switch casenum %Scenario, which is determined in solve_vdp
     case 1     %Colony size FB (-1)    %Nutritional energy FB (-1)
         X_FB=alpha/(CCS - y(4) - y(5));
-        Y_FB=y_negative * (exp(-y(13)/(CCS*beta)));
+        Y_FB=n_negative * (exp(-y(13)/(CCS*beta)));
         if Y_FB > 10^9
             Y_FB=10^9;
         end
     case 2         %Colony size FB (0H)       %Nutritional energy FB (-1)
         X_FB=alpha/10;
-        Y_FB=y_negative * (exp(-y(13)/(CCS*beta)));
+        Y_FB=n_negative * (exp(-y(13)/(CCS*beta)));
         if Y_FB > 10^9
             Y_FB=10^9;
         end
     case 3       %Colony size FB (0L)        %Nutritional energy FB (-1)
        X_FB=alpha/100;
-        Y_FB=y_negative * (exp(-y(13)/(CCS*beta)));
+        Y_FB=n_negative * (exp(-y(13)/(CCS*beta)));
         if Y_FB > 10^9
             Y_FB=10^9;
         end
     case 4        %Colony size FB (+1)        %Nutritional energy FB (-1)
         X_FB=alpha * (CCS - y(4) - y(5)) /10000;
-        Y_FB=y_negative * (exp(-y(13)/(CCS*beta)));
+        Y_FB=n_negative * (exp(-y(13)/(CCS*beta)));
         if Y_FB > 10^9
             Y_FB=10^9;
         end
@@ -77,25 +77,25 @@ switch casenum %Scenario, which is determined in solve_vdp
         Y_FB=1;
     case 9        %Colony size FB (-1)        %Nutritional energy FB (+1)
        X_FB=alpha/(CCS - y(4) - y(5));
-        Y_FB=y_positive * exp(y(13)/(CCS*beta));
+        Y_FB=n_positive * exp(y(13)/(CCS*beta));
         if Y_FB > 10^9
             Y_FB=10^9;
         end
     case 10        %Colony size FB (0H)        %Nutritional energy FB (+1)
         X_FB=alpha/10;
-        Y_FB=y_positive * exp(y(13)/(CCS*beta));
+        Y_FB=n_positive * exp(y(13)/(CCS*beta));
         if Y_FB > 10^9
             Y_FB=10^9;
         end
     case 11        %Colony size FB (0L)        %Nutritional energy FB (+1)
         X_FB=alpha/100;
-        Y_FB=y_positive * exp(y(13)/(CCS*beta));
+        Y_FB=n_positive * exp(y(13)/(CCS*beta));
         if Y_FB > 10^9
             Y_FB=10^9;
         end        
     case 12        %Colony size FB (+1)        %Nutritional energy FB (+1)
         X_FB=alpha * (CCS - y(4) - y(5)) /10000;
-        Y_FB=y_positive * exp(y(13)/(CCS*beta));
+        Y_FB=n_positive * exp(y(13)/(CCS*beta));
         if Y_FB > 10^9
             Y_FB=10^9;
         end    
@@ -105,28 +105,28 @@ end
 
 %% Calclate nutritional energy shortage
 if(y(13)<0)
-    A_lack=y(13)/CCS;
-else A_lack=0;
+    n_lack=-y(13)/CCS;
+else n_lack=0;
 end
 
 %% Number of birth
-K=min(k_max*exp(A_lack/mu),(l*y(10)));
+Nb=min(k_max*exp(-(n_lack/mu)),(l*y(10)));
 
 %% Nutiritional Energy consumption
 consume = u_inside*(y(1) + y(2) + y(3) + y(6) + y(7) + y(8) + y(9) + y(10))*24/6.5 + u_outside*(y(4) + y(5))*24/6.5; 
-H=1-exp(A_lack/mu);
+F_E_lack=1-exp(-(n_lack/mu));
 
 %% Number of death
-D_R_f= min(1,q_foraging+H) * y(1);
-D_R_m= min(1,q_midden+H) * y(2);
-D_R_n= min(1,q_nest+H) * y(3);
-D_E_f= min(1,q_foraging+H + g) * y(4);
-D_E_m= min(1,q_midden+H + g*exp(-y(11)/gamma)) * y(5);
-D_E_n= min(1,q_nest+H) * y(6);
-D_I_f= min(1,q_foraging+H) * y(7);
-D_I_m= min(1,q_midden+H) * y(8);
-D_I_n= min(1,q_nest+H) * y(9);
-D_blood= min(1,q_blood+H) * y(10);
+D_R_f= min(1,q_foraging+F_E_lack) * y(1);
+D_R_m= min(1,q_midden+F_E_lack) * y(2);
+D_R_n= min(1,q_nest+F_E_lack) * y(3);
+D_E_f= min(1,q_foraging+F_E_lack + g) * y(4);
+D_E_m= min(1,q_midden+F_E_lack + g*exp(-y(11)/gamma)) * y(5);
+D_E_n= min(1,q_nest+F_E_lack) * y(6);
+D_I_f= min(1,q_foraging+F_E_lack) * y(7);
+D_I_m= min(1,q_midden+F_E_lack) * y(8);
+D_I_n= min(1,q_nest+F_E_lack) * y(9);
+D_brood= min(1,q_brood+F_E_lack) * y(10);
 
 %% ODE
 dydt = zeros(13,1);
@@ -143,13 +143,13 @@ dydt(7) = s_Estop*y(4) - X_FB*y(1)*y(7)*Y_FB - s_Esame*y(7)*Y_FB -D_I_f;
 dydt(8) = s_Estop*y(5) - X_FB*y(1)*y(8)*Y_FB - X_FB*y(2)*y(8)-s_Esame*y(8)-s_Ediff*y(8)*Y_FB -D_I_m;
 dydt(9) = s_Estop*y(6) - X_FB*y(1)*y(9)*Y_FB - X_FB*y(3)*y(9)-s_Esame*y(9) - s_Ediff*y(9)*Y_FB -D_I_n;
 
-dydt(10) = K - (s_Ediff+X_FB*y(3))*y(10)*(1-phi) - (s_Ediff+X_FB*y(2))*y(10)*(1-phi) -D_blood;%Blood care worker
+dydt(10) = Nb - (s_Ediff+X_FB*y(3))*y(10)*(1-phi) - (s_Ediff+X_FB*y(2))*y(10)*(1-phi) -D_brood;%Brood care worker
 
 dydt(11) = -theta*y(11) + exp(-y(11)/rho_cdet)*y(5);%Midden construction
 
 dydt(12) = - (1-(1/exp((y(12)/rho_ddet))))*y(6) + psi;%Debris inside the nest dynamics
 
-dCCSdt = K-D_R_f-D_R_m-D_R_n-D_E_f-D_E_m-D_E_n-D_I_f-D_I_m-D_I_n-D_blood;%Colony size's dynamics
+dCCSdt = Nb-D_R_f-D_R_m-D_R_n-D_E_f-D_E_m-D_E_n-D_I_f-D_I_m-D_I_n-D_brood;%Colony size's dynamics
 if(y(13)>a_max*CCS && rho_fdet*y(4)*lambda-consume>a_max*dCCSdt)%%Workers have maximum nutritional energy
     dydt(13)=a_max*dCCSdt;
 else

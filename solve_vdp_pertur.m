@@ -16,17 +16,17 @@ if (dist_term == 1)
     t_pertur=   6.5*60*60*30*7*5;      %time to start disturbance[sec]
     l_pertur=   6.5*60*60*30*7*2;      %Period of disturbance[sec]
     if (disturbance == 1)
-            food_pertur=  3.4*10^(-4);%rho_fdet value under disturbance   
+            e1_pertur=  3.4*10^(-4);%rho_fdet value under disturbance   
             c_coll_pertur= theta;%theta value under disturbance   
             d_plus_pertur= psi;%psi value under disturbance   
     end
     if (disturbance == 2)
-            food_pertur= rho_fdet;   
+            e1_pertur= rho_fdet;   
             c_coll_pertur= theta * 600;
             d_plus_pertur= psi;
     end
     if (disturbance == 3)
-            food_pertur=  rho_fdet;   
+            e1_pertur=  rho_fdet;   
             c_coll_pertur= theta;
             d_plus_pertur= 5e-3;
     end
@@ -36,17 +36,17 @@ if (dist_term == 2)
     t_pertur=   6.5*60*60*30*7*5;      %time to start disturbance[sec]
     l_pertur=   6.5*60*60*30;          %Period of disturbance[sec]
     if (disturbance == 1)
-            food_pertur=  3.0*10^(-4);   
+            e1_pertur=  3.0*10^(-4);   
             c_coll_pertur= theta;
             d_plus_pertur= psi;
     end
     if (disturbance == 2)
-            food_pertur= rho_fdet;   
+            e1_pertur= rho_fdet;   
             c_coll_pertur= theta * 5000;
             d_plus_pertur= psi;
     end
     if (disturbance == 3)
-            food_pertur=  rho_fdet;   
+            e1_pertur=  rho_fdet;   
             c_coll_pertur= theta;
             d_plus_pertur= 0.03;
     end
@@ -56,17 +56,17 @@ if (dist_term == 3)
     t_pertur=   6.5*60*60*30;       %time to start disturbance[sec]
     l_pertur=   6.5*60*60*30;       %Period of disturbance[sec]
     if (disturbance == 1)
-            food_pertur=  2.6*10^(-4);   
+            e1_pertur=  2.6*10^(-4);   
             c_coll_pertur= theta;
             d_plus_pertur= psi;
     end
     if (disturbance == 2)
-            food_pertur= rho_fdet;   
+            e1_pertur= rho_fdet;   
             c_coll_pertur= theta *10;
             d_plus_pertur= psi;
     end
     if (disturbance == 3)
-            food_pertur=  rho_fdet;   
+            e1_pertur=  rho_fdet;   
             c_coll_pertur= theta;
             d_plus_pertur= 1e-4;
     end
@@ -75,18 +75,18 @@ end
 
 %% Initialize
 global ene_init
-global blood_init
+global brood_init
 global forager_init
 global midworker_init
 global nestworker_init
-y0=[0; 0; forager_init; 0; 0; midworker_init; 0; 0; nestworker_init; blood_init; 0; 0; ene_init];%%Initial workers
+y0=[0; 0; forager_init; 0; 0; midworker_init; 0; 0; nestworker_init; brood_init; 0; 0; ene_init];%%Initial workers
 
 %% Simulation under normal environment
 options = odeset('Events',@events);
 [t,y,~,~] = ode23tb(@vdp,[0 t_pertur],y0,options);%%Normal environment untill disturbance start
 
 %% Disturbance start
-rho_fdet=food_pertur;
+rho_fdet=e1_pertur;
 psi=d_plus_pertur;
 theta = c_coll_pertur;
 

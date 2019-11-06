@@ -4,14 +4,14 @@ function result = solve_vdp_roundtrip(Case)
 global casenum
 casenum = Case;
 global ene_init
-global blood_init
+global brood_init
 global forager_init
 global midworker_init
 global nestworker_init
 h = waitbar(0,['Case',num2str(casenum)]);%Waitbar
 year=15;
 t_tot=      6.5*60*60*30*7*year;%simulation time(year)
-y0=[0; 0; forager_init; 0; 0; midworker_init; 0; 0; nestworker_init; blood_init; 0; 0; ene_init];%%Initial workers
+y0=[0; 0; forager_init; 0; 0; midworker_init; 0; 0; nestworker_init; brood_init; 0; 0; ene_init];%%Initial workers
 options = odeset('Events',@events);
 set_parameter();%%Parameter determination
 

@@ -62,7 +62,7 @@ for i=1:12
     row('g','$g$');
     row('q_midden','$q_{i(M)}$');
     row('q_nest','$q_{i(N)}$');
-    row('q_blood','$q_{i(B)}$');
+    row('q_brood','$q_{i(B)}$');
     row('gamma','$\\gamma$');
     row('theta','$\\theta$');
     row('psi','$\\psi$');    
@@ -83,7 +83,7 @@ fclose(fd);
         
       
         fprintf(fd,'\\begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|} \\hline\n');
-        fprintf(fd,'&\\multicolumn{2}{|c|}{Forager}&\\multicolumn{2}{|c|}{Midden}&\\multicolumn{2}{|c|}{Maintenance}&\\multicolumn{2}{|c|}{Blood care}&\\multicolumn{2}{|c|}{Colony size}	\\\\ \\cline{2-11}\n');
+        fprintf(fd,'&\\multicolumn{2}{|c|}{Forager}&\\multicolumn{2}{|c|}{Midden}&\\multicolumn{2}{|c|}{Maintenance}&\\multicolumn{2}{|c|}{Brood care}&\\multicolumn{2}{|c|}{Colony size}	\\\\ \\cline{2-11}\n');
         fprintf(fd,'\\raisebox{1em}{Parameter}&$-50\\%%$&$+50\\%%$&$-50\\%%$&$+50\\%%$&$-50\\%%$&$+50\\%%$&$-50\\%%$&$+50\\%%$&$-50\\%%$&$+50\\%%$	\\\\ \\hline \\hline\n');
         
     end

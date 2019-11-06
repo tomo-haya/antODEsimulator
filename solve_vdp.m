@@ -8,11 +8,11 @@ t_tot=      6.5*60*60*30*7*year;    %[sec]  oneday:6.5h, one month:30day, one ye
 %% Initialize
 set_parameter();    %Constant variables determination
 global ene_init
-global blood_init
+global brood_init
 global forager_init
 global midworker_init
 global nestworker_init
-y0=[0; 0; forager_init; 0; 0; midworker_init; 0; 0; nestworker_init; blood_init; 0; 0; ene_init];%%Initial workers
+y0=[0; 0; forager_init; 0; 0; midworker_init; 0; 0; nestworker_init; brood_init; 0; 0; ene_init];%%Initial workers
 options = odeset('Events',@events);
 
 [t,y] = ode23tb(@vdp,[0 t_tot],y0,options);%Solve ODE. t:sec, y:see vdp.m 

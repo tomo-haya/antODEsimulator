@@ -9,7 +9,7 @@ set(groot,'defaultTextFontWeight','demi');
 clear
 clc
 
-    Disturbance = 3;%%1:Starvation(Fig. 5) 2:Midden collapse(Fig. 6) 3:Debris inflow(Fig. 7)
+    Disturbance = 2;%%1:Starvation(Fig. 5) 2:Midden collapse(Fig. 6) 3:Debris inflow(Fig. 7)
 
     
     
@@ -441,7 +441,7 @@ figure(1)
     area(ty9, Z9)
     set(gca,'FontSize',15);
     axis([0/7,5/7,0,1])
-    l=legend({'Foraging','Midden Work','Nest maintenance','Blood care'},'Position',[0.45 -0.085 0.1 0.2],'Orientation','horizontal');
+    l=legend({'Foraging','Midden Work','Nest maintenance','Brood care'},'Position',[0.45 -0.085 0.1 0.2],'Orientation','horizontal');
     set(l,'FontSize',15) 
      
      

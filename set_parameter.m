@@ -56,8 +56,8 @@ q_midden=1.*10^(-7);
 global q_nest;
 q_nest=1.*10^(-7);
 %% Death rate of workers in intara-nest tasks killed by natural causes [/s]
-global q_blood;
-q_blood=1.*10^(-8);
+global q_brood;
+q_brood=1.*10^(-8);
 %% Coefficient for death rate from external enemy attack [midden]
 global gamma;
 gamma=1;
@@ -79,8 +79,8 @@ a_max=u_inside*60*60*6.5*5;
 
 
 %% Initial worker[num]
-global blood_init;
-blood_init = 10;%7;
+global brood_init;
+brood_init = 10;%7;
 global forager_init;
 forager_init = 5;%3;
 global midworker_init;
@@ -89,6 +89,6 @@ global nestworker_init;
 nestworker_init = 5;%3;
 %% Initial energy[kcal]
 global ene_init;
-ene_init=(blood_init + forager_init + midworker_init + nestworker_init) * a_max;
+ene_init=(brood_init + forager_init + midworker_init + nestworker_init) * a_max;
 
 end
